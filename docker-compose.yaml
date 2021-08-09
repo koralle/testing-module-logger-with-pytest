@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  testing-module-logger-with-pytest:
+    container_name: testing-module-logger-with-pytest
+    image: testing-module-logger-with-pytest
+    build:
+      context: .
+      dockerfile: Dockerfile.vscode
+    volumes:
+      - .:/home/dev/workspace:cached
+    restart: always
+    tty: true

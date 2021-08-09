@@ -1,0 +1,31 @@
+FROM python:3.9.6-buster
+
+ARG UID=1000
+ARG GID=2000
+ENV USER dev
+ENV USERGROUP app
+ENV HOME /home/${USER}
+ENV SHELL /bin/bash
+ENV PYTHONUNBUFFERED=TRUE
+
+EXPOSE ${PORT}
+
+# Add non-root user
+RUN groupadd -g ${GID} ${USERGROUP} && \
+    useradd -g ${USERGROUP} -m -u ${UID} ${USER} && \
+    echo "${USER}:dev" | chpasswd && \
+    sed -i.bak "s#${HOME}:#${HOME}:${SHELL}#" /etc/passwd
+
+# Update package list
+RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list && \
+    apt-get update -y && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/*
+
+USER ${UID}
+WORKDIR ${HOME}/workspace
+
+RUN pip install poetry && \
+    python -m poetry config virtualenvs.in-project true
+
+COPY --chown=${USERGROUP}:${USER} ./ ${HOME}/workspace

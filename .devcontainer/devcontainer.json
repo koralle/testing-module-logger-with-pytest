@@ -1,0 +1,103 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.187.0/containers/docker-existing-docker-compose
+// If you want to run as a non-root user in the container, see .devcontainer/docker-compose.yml.
+{
+	"name": "Existing Docker Compose (Extend)",
+	// Update the 'dockerComposeFile' list if you have more compose files or use different names.
+	// The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
+	"dockerComposeFile": [
+		"../docker-compose.yaml",
+		"docker-compose.yml"
+	],
+	// The 'service' property is the name of the service for the container that VS Code should
+	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
+	"service": "testing-module-logger-with-pytest",
+	// The optional 'workspaceFolder' property is the path VS Code should open by default when
+	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
+	"workspaceFolder": "/home/dev/workspace",
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.poetryPath": "/home/dev/.local/bin/poetry",
+		"python.venvPath": "/home/dev/workspace/.venv",
+		"python.linting.enabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.linting.flake8Enabled": true,
+		"python.linting.flake8Args": ["--max-line-length=88"],
+		"python.linting.lintOnSave": true,
+		"python.formatting.provider": "black",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true
+		}
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		// Python
+		"ms-python.python",
+		// Pylance
+		"ms-python.vscode-pylance",
+		// Bracket Pair Colorizer 2
+		"coenraads.bracket-pair-colorizer-2",
+		// Bookmarks
+		"alefragnani.bookmarks",
+		// Material Icon Theme
+		"pkief.material-icon-theme",
+		// TODO Highlight
+		"wayou.vscode-todo-highlight",
+		// Bash Debug
+		"rogalmic.bash-debug",
+		// Beautify
+		"hookyqr.beautify",
+		// Better TOML
+		"bungcip.better-toml",
+		// change-case
+		"wmaurer.change-case",
+		// Code Spell Checker
+		"streetsidesoftware.code-spell-checker",
+		// Git Graph
+		"mhutchie.git-graph",
+		// Git History
+		"donjayamanne.githistory",
+		// Git Project Manager
+		"felipecaputo.git-project-manager",
+		// gitignore
+		"codezombiech.gitignore",
+		// GitLens - Git supercharged
+		"eamodio.gitlens",
+		// indent-rainbow
+		"oderwat.indent-rainbow",
+		// Json Editor
+		"nickdemayo.vscode-json-editor",
+		// Markdown All in One
+		"yzhang.markdown-all-in-one",
+		// Markdown PDF
+		"yzane.markdown-pdf",
+		// Markdown Preview Enhanced
+		"shd101wyy.markdown-preview-enhanced",
+		// Partial Diff
+		"ryu1kn.partial-diff",
+		// Path Autocomplete
+		"ionutvmi.path-autocomplete",
+		// Python Docstring Generator
+		"njpwerner.autodocstring",
+		// Regex Previewer
+		"chrmarti.regex",
+		// Todo Tree
+		"gruntfuggly.todo-tree",
+		// Trailing Spaces
+		"shardulm94.trailing-spaces",
+		// zenkaku
+		"mosapride.zenkaku"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	"forwardPorts": [],
+	// Uncomment the next line if you want start specific services in your Docker Compose config.
+	// "runServices": [],
+	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+	// "shutdownAction": "none",
+	// Uncomment the next line to run commands after the container is created - for example installing curl.
+	"postCreateCommand": "python -m poetry install",
+	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+}
